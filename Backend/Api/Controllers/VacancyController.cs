@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers;
+//namespace Api.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class VacancyController : BaseController
-{
-}
+//[ApiController]
+//[Route("[controller]")]
+//public class VacancyController : BaseController
+//{
+//}

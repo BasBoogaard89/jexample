@@ -1,16 +1,35 @@
 ﻿using Domain.Entities;
-using Infrastructure.Context;
-using Infrastructure.Interfaces.Services;
-using Microsoft.EntityFrameworkCore;
+using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
 
 namespace Infrastructure.Services;
 
-public class BaseService<T>(AppDbContext context) : IBaseService<T> where T : BaseEntity
+public class BaseService<T>(IBaseRepository<T> repository) : IBaseService<T> where T : BaseEntity
 {
-    protected readonly AppDbContext _context = context;
-
     public virtual async Task<List<T>> GetAll()
     {
-        return await _context.Set<T>().ToListAsync();
+        return await repository.GetAll();
+    }
+
+    public virtual async Task<T> GetById(int id)
+    {
+        return await repository.GetById(id);
+    }
+
+    public virtual async Task<T> Save(T entity)
+    {
+        return await repository.Save(entity);
+    }
+
+    public virtual async Task<bool> Delete(int id)
+    {
+        var entity = await GetById(id);
+
+        if (entity == null)
+            return false;
+
+        await repository.Delete(id);
+
+        return true;
     }
 }

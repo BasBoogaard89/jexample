@@ -1,7 +1,8 @@
 ﻿using Domain.Entities;
 
-namespace Infrastructure.Interfaces.Services;
+namespace Application.Interfaces.Services;
 
 public interface ICompanyService : IBaseService<Company>
 {
+    Task<Company> Save(Company entity);
 }

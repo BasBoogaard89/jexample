@@ -1,14 +1,19 @@
 ﻿using Domain.Entities;
-using Infrastructure.Context;
-using Infrastructure.Interfaces.Services;
-using Microsoft.EntityFrameworkCore;
+using Application.Interfaces.Repositories;
+using Application.Interfaces.Services;
 
 namespace Infrastructure.Services;
 
-public class CompanyService(AppDbContext context) : BaseService<Company>(context), ICompanyService
+public class CompanyService(ICompanyRepository companyRepository) : BaseService<Company>(companyRepository), ICompanyService
 {
-    public override async Task<List<Company>> GetAll()
+    public override async Task<Company> Save(Company updatedEntity)
     {
-        return await _context.Companies.ToListAsync();
+        var entity = await companyRepository.GetById(updatedEntity.Id) ?? new Company();
+
+        entity.Name = updatedEntity.Name;
+        entity.Address = updatedEntity.Address;
+        entity.Vacancies = updatedEntity.Vacancies;
+
+        return await companyRepository.Save(entity);
     }
 }

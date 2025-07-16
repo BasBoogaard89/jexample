@@ -1,16 +1,28 @@
+using Application.Interfaces;
 using Infrastructure.Context;
 using Infrastructure.Extensions;
 using Infrastructure.Installers;
+using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var infrastructureAssembly = typeof(DbContextInstaller).Assembly;
+// Register Installers from Api
+builder.Services.InstallServicesFromAssembly(builder.Configuration, typeof(Program).Assembly);
+
+builder.Services.AddServicesByConvention(typeof(IInstaller).Assembly);
 
 // Register Installers and Services from Infrastructure
+var infrastructureAssembly = typeof(DbContextInstaller).Assembly;
 builder.Services.InstallServicesFromAssembly(builder.Configuration, infrastructureAssembly);
 builder.Services.AddServicesByConvention(infrastructureAssembly);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        opts.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -25,9 +37,14 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
+}
+else
+{
+    app.UseHttpsRedirection();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
 

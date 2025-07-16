@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BaseController : ControllerBase
+public class BaseController(IMapper mapper) : ControllerBase
 {
 }

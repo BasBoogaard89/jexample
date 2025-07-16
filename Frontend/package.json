@@ -6,7 +6,8 @@
 		"start": "ng serve",
 		"build": "ng build",
 		"watch": "ng build --watch --configuration development",
-		"test": "ng test"
+		"test": "ng test",
+		"generate-api": "npx openapi-typescript-codegen --input http://localhost:5177/openapi/v1.json --output src/app/generated/api --client axios --name OpenAPIClient"
 	},
 	"prettier": {
 		"overrides": [
@@ -28,6 +29,8 @@
 		"@angular/material": "^20.1.0",
 		"@angular/platform-browser": "^20.1.0",
 		"@angular/router": "^20.1.0",
+		"axios": "^1.10.0",
+		"form-data": "^4.0.3",
 		"rxjs": "~7.8.0",
 		"tslib": "^2.3.0",
 		"zone.js": "~0.15.0"
@@ -43,6 +46,7 @@
 		"karma-coverage": "~2.2.0",
 		"karma-jasmine": "~5.1.0",
 		"karma-jasmine-html-reporter": "~2.1.0",
+		"openapi-typescript-codegen": "^0.29.0",
 		"typescript": "~5.8.2"
 	}
 }

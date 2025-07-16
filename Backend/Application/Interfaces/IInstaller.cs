@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Interfaces;
+namespace Application.Interfaces;
 
 public interface IInstaller
 {

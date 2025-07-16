@@ -1,21 +1,57 @@
 ﻿using Domain.Entities;
 using Infrastructure.Context;
-using Infrastructure.Interfaces.Repositories;
+using Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Repositories;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
+public class BaseRepository<T>(AppDbContext context) : IBaseRepository<T> where T : BaseEntity
 {
-    private readonly AppDbContext _context;
-
-    public BaseRepository(AppDbContext context)
+    public async Task<List<T>> GetAll()
     {
-        _context = context;
+        return await context.Set<T>().ToListAsync();
     }
 
-    public Task<List<T>> GetAll()
+    public async Task<T> GetById(int id)
     {
-        return _context.Set<T>().ToListAsync();
+        var entity = await context.Set<T>().FindAsync(id);
+
+        return entity;
+    }
+
+    public async Task<T> Save(T updatedEntity)
+    {
+        EntityEntry entry;
+
+        if (updatedEntity.Id == 0)
+        {
+            entry = await context.Set<T>().AddAsync(updatedEntity);
+        } else
+        {
+            entry = context.Set<T>().Update(updatedEntity);
+        }
+
+        await SaveChanges();
+
+        return (T)entry.Entity;
+    }
+
+    public async Task<bool> Delete(int id)
+    {
+        var entity = await context.Set<T>().FindAsync(id);
+
+        if (entity != null)
+        {
+            context.Set<T>().Remove(entity);
+            await SaveChanges();
+        }
+
+        return entity != null;
+    }
+
+    public async Task SaveChanges()
+    {
+        await context.SaveChangesAsync();
     }
 }

@@ -1,23 +1,32 @@
-<p>page works!</p>
-<table mat-table [dataSource]="companies" class="mat-elevation-z8">
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
+<section class="page-panel">
+    <h1>Bedrijfsgids</h1>
 
-    <ng-container matColumnDef="options">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-            <button mat-button (click)="edit(element.id)">Bewerk</button>
-            <button mat-button (click)="delete(element.id)">Verwijder</button>
-        </td>
-    </ng-container>
+    <div class="toolbar">
+        <button mat-button (click)="edit(0)">Nieuw bedrijf toevoegen</button>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <mat-checkbox [(ngModel)]="filters.onlyWithActiveVacancies" (change)="getAll()">Toon alleen met vacatures</mat-checkbox>
+    </div>
+
+    <table mat-table [dataSource]="companies" class="mat-elevation-z8" matSort multiTemplateDataRows>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="vacancies">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Vacatures </th>
+            <td mat-cell *matCellDef="let element"> {{element.vacancies.length }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="options">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="edit(element.id)">Bewerk</button>
+                <button mat-button (click)="delete(element.id)">Verwijder</button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</section>

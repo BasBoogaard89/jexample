@@ -2,23 +2,24 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CompanyDto3 } from '../models/CompanyDto3';
-import type { CompanyFilterDto } from '../models/CompanyFilterDto';
+import type { VacancyDto } from '../models/VacancyDto';
+import type { VacancyDto2 } from '../models/VacancyDto2';
+import type { VacancyFilterDto } from '../models/VacancyFilterDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
-export class CompanyService {
+export class VacancyService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
     /**
      * @param requestBody
-     * @returns CompanyDto3 OK
+     * @returns VacancyDto OK
      * @throws ApiError
      */
-    public postCompanyGetAllFiltered(
-        requestBody: CompanyFilterDto,
-    ): CancelablePromise<Array<CompanyDto3>> {
+    public postVacancyGetAllFiltered(
+        requestBody: VacancyFilterDto,
+    ): CancelablePromise<Array<VacancyDto>> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/Company/GetAllFiltered',
+            url: '/Vacancy/GetAllFiltered',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -27,10 +28,10 @@ export class CompanyService {
      * @returns any OK
      * @throws ApiError
      */
-    public getCompany(): CancelablePromise<any> {
+    public getVacancy(): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/Company',
+            url: '/Vacancy',
         });
     }
     /**
@@ -38,12 +39,12 @@ export class CompanyService {
      * @returns any OK
      * @throws ApiError
      */
-    public postCompany(
-        requestBody: CompanyDto3,
+    public postVacancy(
+        requestBody: VacancyDto2,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/Company',
+            url: '/Vacancy',
             body: requestBody,
             mediaType: 'application/json',
         });
@@ -53,12 +54,12 @@ export class CompanyService {
      * @returns any OK
      * @throws ApiError
      */
-    public getCompany1(
+    public getVacancy1(
         id: number,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/Company/{id}',
+            url: '/Vacancy/{id}',
             path: {
                 'id': id,
             },
@@ -69,12 +70,12 @@ export class CompanyService {
      * @returns boolean OK
      * @throws ApiError
      */
-    public deleteCompany(
+    public deleteVacancy(
         id: number,
     ): CancelablePromise<boolean> {
         return this.httpRequest.request({
             method: 'DELETE',
-            url: '/Company/{id}',
+            url: '/Vacancy/{id}',
             path: {
                 'id': id,
             },

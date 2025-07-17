@@ -1,4 +1,72 @@
 /* You can add global styles to this file, and also import other style files */
+@import "colors";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: $bg-color;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0;
+}
+
+a {
+    color: $cyan;
+    text-decoration: underline;
+}
+
+.page-panel {
+    margin: 2em;
+    
+    h1 {
+        color: $cyan;
+    }
+
+    table {
+        margin-top: 1em;
+
+        td.mat-column-options {
+            text-align: right;
+        }
+
+        tr.mat-mdc-row:hover {
+            background: $bg-row-hover;
+        }
+    }
+}
+
+mat-dialog-content.edit-panel {
+    position: relative;
+    background-color: $bg-color;
+    padding: 16px;
+    border-radius: 8px;
+
+    display: flex;
+    width: 80vw;
+    height: 80vh;
+    flex-direction: column;
+
+    .close-button {
+        position: absolute;
+        right: 1em;
+        top: 1em;
+    }
+
+    h3 {
+        color: $cyan;
+    }
+
+    .mat-mdc-form-field {
+        display: block;
+    }
+
+    ul {
+        color: #fff;
+    }
+}

@@ -3,10 +3,11 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AddressDto } from './AddressDto';
-export type CompanyDto = {
+import type { VacancyDto } from './VacancyDto';
+export type CompanyDto2 = {
     name: string;
     address: AddressDto;
-    vacancies?: Array<any>;
+    vacancies?: Array<VacancyDto>;
     id?: number;
 };
 

@@ -1,3 +1,9 @@
+@import "colors";
+
+h1 {
+    color: $cyan;
+}
+
 .payoff {
-    font-size: .75em;
+    margin-left: 2em;
 }

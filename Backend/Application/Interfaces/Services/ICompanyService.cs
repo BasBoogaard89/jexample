@@ -1,8 +1,9 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos.Filters;
+using Domain.Entities;
 
 namespace Application.Interfaces.Services;
 
 public interface ICompanyService : IBaseService<Company>
 {
-    Task<Company> Save(Company entity);
+    Task<List<Company>> GetAllFiltered(CompanyFilterDto filters);
 }

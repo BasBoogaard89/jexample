@@ -1,20 +1,27 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../modules/material-module';
-import { CompanyDto, CompanyService } from '../../generated/api';
+import { CompanyDto, CompanyFilterDto, CompanyService } from '../../generated/api';
 import { AxiosHttpRequest } from '../../generated/api/core/AxiosHttpRequest';
 import { OpenAPI } from '../../generated/api/core/OpenAPI';
 import { Dialog, DialogRef } from '@angular/cdk/dialog';
 import { CompanyEdit } from './company-edit/company-edit';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-company',
-    imports: [MaterialModule],
+    imports: [FormsModule, MaterialModule],
     templateUrl: './company.html',
     styleUrl: './company.scss'
 })
-export class Company {
-    displayedColumns: string[] = ["id", "name", "options"];
-    companies: CompanyDto[] = [];
+export class Company implements AfterViewInit {
+    @ViewChild(MatSort) sort!: MatSort;
+    
+    displayedColumns: string[] = ["name", "vacancies", "options"];
+    companies: MatTableDataSource<CompanyDto> = new MatTableDataSource<CompanyDto>();
+    filters: CompanyFilterDto = {};
+    expandedElement: CompanyDto | null = null;
 
     private companyService: CompanyService;
 
@@ -25,30 +32,44 @@ export class Company {
         this.getAll();
     }
 
-    public getAll(): void {
-        this.companyService.getCompany().then(result => {
-            this.companies = result;
-            console.log(this.companies);
+    ngAfterViewInit() {
+        this.companies.sort = this.sort;
+    }
+
+    public getAll() {
+        this.companyService.postCompanyGetAllFiltered(this.filters).then(result => {
+            this.companies.data = result;
         });
     }
 
     public edit(id: number) {
         this.companyService.getCompany1(id).then(company => {
+            if(!company) company = {};
             this.dialog.open(CompanyEdit, { data: company }).closed.subscribe(formData => this.save(id, formData));
         });
     }
 
     save(id: number, formData: any) {
+        if(!formData) return;
+
         formData['id'] = id;
-        
+
         this.companyService.postCompany(formData).then(_ => {
            this.getAll();
         });
     }
 
     public delete(id: number) {
-        this.companyService.deleteCompany(id).then(id => {
+        this.companyService.deleteCompany(id).then(_ => {
             this.getAll();
         });
+    }
+
+    isExpanded(element: any) {
+        return this.expandedElement === element;
+    }
+    
+    toggle(element: any) {
+        this.expandedElement = this.isExpanded(element) ? null : element;
     }
 }

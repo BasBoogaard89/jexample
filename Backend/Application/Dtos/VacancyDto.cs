@@ -12,4 +12,6 @@ public class VacancyDto : BaseDto
 
     [Required]
     public int CompanyId { get; set; }
+
+    public CompanyDto? Company { get; set; }
 }

@@ -1,0 +1,29 @@
+<mat-dialog-content class="edit-panel">
+    <button matButton class="close-button" (click)="closeDialog()">Sluiten</button>
+
+    <h3>Bewerk {{form.controls['title'].value}}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Titel</mat-label>
+            <input matInput formControlName="title" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Inhoud</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Bedrijf</mat-label>
+            <mat-select formControlName="companyId" required>
+                <mat-option *ngFor="let company of data.companies" [value]="company.id">
+                {{ company.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Opslaan</button>
+    </form>
+</mat-dialog-content>

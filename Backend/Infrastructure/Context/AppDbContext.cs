@@ -18,6 +18,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<Company>()
             .Navigation(c => c.Vacancies)
             .AutoInclude();
+
+        modelBuilder.Entity<Vacancy>()
+            .Navigation(c => c.Company)
+            .AutoInclude();
     }
 
 }

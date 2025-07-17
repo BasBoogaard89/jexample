@@ -1,1 +1,5 @@
-<p>menu works!</p>
+<nav>
+    <button mat-button *ngFor="let route of navRoutes" [routerLink]="route.path">
+        {{ route.label }}
+    </button>
+</nav>

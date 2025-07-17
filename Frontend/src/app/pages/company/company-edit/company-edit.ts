@@ -3,51 +3,41 @@ import { MaterialModule } from '../../../modules/material-module';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-company-edit',
-    imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+    imports: [CommonModule, MaterialModule, ReactiveFormsModule, RouterModule],
     templateUrl: './company-edit.html',
     styleUrl: './company-edit.scss'
 })
 export class CompanyEdit {
-    companyForm: FormGroup;
+    form: FormGroup;
     dialogRef = inject(DialogRef<CompanyEdit>);
     data = inject(DIALOG_DATA);
+    hasVacancies = this.data.vacancies && this.data.vacancies.length > 0;
 
     constructor(private fb: FormBuilder) {
-        this.companyForm = this.fb.group({
+        this.form = this.fb.group({
             name: ['', Validators.required],
             address: this.fb.group({
                 street: ['', Validators.required],
                 number: ['', Validators.required],
                 zipCode: ['', Validators.required],
                 city: ['', Validators.required]
-            }),
-            vacancies: this.fb.array([])
+            })
         });
 
-        this.companyForm.patchValue(this.data);
-
-        this.addVacancy();
-    }
-
-    get vacancies(): FormArray {
-        return this.companyForm.get('vacancies') as FormArray;
-    }
-
-    addVacancy(): void {
-        const vacancyGroup = this.fb.group({
-            title: ['', Validators.required],
-            content: ['']
-        });
-
-        this.vacancies.push(vacancyGroup);
+        this.form.patchValue(this.data);
     }
 
     onSubmit(): void {
-        if (this.companyForm.valid) {
-            this.dialogRef.close(this.companyForm.value);
+        if (this.form.valid) {
+            this.dialogRef.close(this.form.value);
         }
+    }
+
+    public closeDialog() {
+        this.dialogRef.close();
     }
 }

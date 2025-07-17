@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './shared/header/header';
-import { Footer } from './shared/footer/footer';
+import { Menu } from './shared/menu/menu';
 
 @Component({
 	selector: 'app-root',
@@ -10,9 +10,9 @@ import { Footer } from './shared/footer/footer';
 	imports: [
 		RouterOutlet,
 		Header,
-		Footer
+		Menu
 	],
 })
 export class App {
-	protected readonly title = signal('Frontend');
+	protected readonly title = signal('JEXample');
 }

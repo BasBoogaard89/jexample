@@ -1,4 +1,5 @@
 using Application.Dtos;
+using Application.Dtos.Filters;
 using Application.Interfaces.Services;
 using AutoMapper;
 using Domain.Entities;
@@ -7,45 +8,16 @@ using System.Net;
 
 namespace Api.Controllers;
 
-public class CompanyController(IMapper mapper, ICompanyService companyService) : BaseController(mapper)
+public class CompanyController(IMapper mapper, ICompanyService companyService) : BaseController<Company, CompanyDto, ICompanyService>(mapper, companyService)
 {
-    [HttpGet]
+
+    [HttpPost("GetAllFiltered")]
     [ProducesResponseType(typeof(List<CompanyDto>), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllFiltered([FromBody] CompanyFilterDto filters)
     {
-        var data = await companyService.GetAll();
+        var data = await companyService.GetAllFiltered(filters);
         var dto = mapper.Map<List<CompanyDto>>(data);
 
         return Ok(data);
-    }
-
-    [HttpGet("{id}")]
-    [ProducesResponseType(typeof(CompanyDto), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> GetById(int id)
-    {
-        var data = await companyService.GetById(id);
-        var dto = mapper.Map<CompanyDto>(data);
-
-        return Ok(dto);
-    }
-
-    [HttpPost]
-    [ProducesResponseType(typeof(CompanyDto), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Save([FromBody] CompanyDto dto)
-    {
-        var entity = mapper.Map<Company>(dto);
-        var data = await companyService.Save(entity);
-        var updatedDto = mapper.Map<CompanyDto>(data);
-
-        return Ok(updatedDto);
-    }
-
-    [HttpDelete]
-    [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Delete(int id)
-    {
-        var result = await companyService.Delete(id);
-
-        return Ok(result);
     }
 }

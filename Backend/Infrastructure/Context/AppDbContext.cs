@@ -23,5 +23,4 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .Navigation(c => c.Company)
             .AutoInclude();
     }
-
 }

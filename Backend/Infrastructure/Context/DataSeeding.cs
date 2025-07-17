@@ -6,7 +6,6 @@ public static class ExampleDataSeeder
 {
     public static void Seed(AppDbContext context)
     {
-        
         if (!context.Companies.Any())
         {
             context.Companies.AddRange(new Company

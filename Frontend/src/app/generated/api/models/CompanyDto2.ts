@@ -2,11 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { AddressDto } from './AddressDto';
 import type { VacancyDto } from './VacancyDto';
 export type CompanyDto2 = {
     name: string;
-    address: AddressDto;
+    address: any;
     vacancies?: Array<VacancyDto>;
     id?: number;
 };

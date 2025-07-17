@@ -22,7 +22,7 @@
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <button mat-button (click)="edit(element.id)">Bewerk</button>
-                <button mat-button (click)="delete(element.id)">Verwijder</button>
+                <button mat-button (click)="confirmDelete(element.id)">Verwijder</button>
             </td>
         </ng-container>
 

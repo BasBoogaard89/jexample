@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+﻿using Application.Dtos;
+using AutoMapper;
 using Domain.Entities;
-using Application.Dtos;
 
 namespace Api.Mappings;
 

@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Interfaces.Repositories;
+using Domain.Entities;
 using Infrastructure.Context;
-using Application.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 

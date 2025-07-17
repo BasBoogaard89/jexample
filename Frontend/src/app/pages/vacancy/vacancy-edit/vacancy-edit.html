@@ -4,17 +4,17 @@
     <h3>Bewerk {{form.controls['title'].value}}</h3>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Titel</mat-label>
             <input matInput formControlName="title" required>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Inhoud</mat-label>
-            <textarea matInput formControlName="content"></textarea>
+            <textarea matInput formControlName="content" rows="15"></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Bedrijf</mat-label>
             <mat-select formControlName="companyId" required>
                 <mat-option *ngFor="let company of data.companies" [value]="company.id">

@@ -2,12 +2,12 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CompanyDto } from './CompanyDto';
+import type { CompanyDto2 } from './CompanyDto2';
 export type VacancyDto = {
     title: string;
-    content: string | null;
+    content?: string | null;
     companyId: number;
-    company?: CompanyDto;
+    company?: CompanyDto2;
     id?: number;
 };
 

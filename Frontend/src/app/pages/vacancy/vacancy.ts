@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, SlicePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-vacancy',
@@ -18,7 +19,7 @@ import { CommonModule, SlicePipe } from '@angular/common';
 })
 export class Vacancy implements AfterViewInit {
     @ViewChild(MatSort) sort!: MatSort;
-    
+
     displayedColumns: string[] = ["title", "company.name", "options"];
     vacancies: MatTableDataSource<VacancyDto> = new MatTableDataSource<VacancyDto>();
     companies: CompanyDto[] = [];
@@ -27,13 +28,19 @@ export class Vacancy implements AfterViewInit {
     private vacancyService: VacancyService;
     private companyService: CompanyService;
 
-    constructor(private dialog: Dialog) {
+    constructor(private dialog: Dialog, private route: ActivatedRoute) {
         const httpRequest = new AxiosHttpRequest(OpenAPI);
         this.vacancyService = new VacancyService(httpRequest);
         this.companyService = new CompanyService(httpRequest);
 
         this.getAll();
         this.getCompanies();
+
+        this.route.queryParamMap.subscribe(params => {
+            const companyId = params.get('companyId');
+            if (companyId)
+                this.filters.companyId = parseInt(companyId, 10);
+        });
     }
 
     ngAfterViewInit() {
@@ -48,17 +55,17 @@ export class Vacancy implements AfterViewInit {
 
     public edit(id: number) {
         this.vacancyService.getVacancy1(id).then(vacancy => {
-            this.dialog.open(VacancyEdit, { data: {vacancy: vacancy, companies: this.companies} }).closed.subscribe(formData => this.save(id, formData));
+            this.dialog.open(VacancyEdit, { data: { vacancy: vacancy, companies: this.companies } }).closed.subscribe(formData => this.save(id, formData));
         });
     }
 
     save(id: number, formData: any) {
-        if(!formData) return;
+        if (!formData) return;
 
         formData['id'] = id;
 
         this.vacancyService.postVacancy(formData).then(_ => {
-           this.getAll();
+            this.getAll();
         });
     }
 
@@ -72,5 +79,11 @@ export class Vacancy implements AfterViewInit {
         this.companyService.getCompany().then(result => {
             this.companies = result;
         });
+    }
+
+    confirmDelete(id: number) {
+        if (confirm("Weet je het zeker? Je kunt verwijderde data niet meer herstellen")) {
+            this.delete(id);
+        }
     }
 }

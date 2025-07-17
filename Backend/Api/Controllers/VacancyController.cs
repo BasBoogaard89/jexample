@@ -6,6 +6,8 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
+namespace Api.Controllers;
+
 public class VacancyController(IMapper mapper, IVacancyService vacancyService) : BaseController<Vacancy, VacancyDto, IVacancyService>(mapper, vacancyService)
 {
     [HttpPost("GetAllFiltered")]
@@ -15,6 +17,6 @@ public class VacancyController(IMapper mapper, IVacancyService vacancyService) :
         var data = await vacancyService.GetAllFiltered(filters);
         var dto = mapper.Map<List<VacancyDto>>(data);
 
-        return Ok(data);
+        return Ok(dto);
     }
 }

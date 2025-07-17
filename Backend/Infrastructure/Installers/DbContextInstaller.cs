@@ -1,5 +1,5 @@
-﻿using Infrastructure.Context;
-using Application.Interfaces;
+﻿using Application.Interfaces;
+using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

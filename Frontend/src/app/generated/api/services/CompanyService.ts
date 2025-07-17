@@ -2,7 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { CompanyDto3 } from '../models/CompanyDto3';
+import type { CompanyDto } from '../models/CompanyDto';
 import type { CompanyFilterDto } from '../models/CompanyFilterDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -10,12 +10,12 @@ export class CompanyService {
     constructor(public readonly httpRequest: BaseHttpRequest) {}
     /**
      * @param requestBody
-     * @returns CompanyDto3 OK
+     * @returns CompanyDto OK
      * @throws ApiError
      */
     public postCompanyGetAllFiltered(
         requestBody: CompanyFilterDto,
-    ): CancelablePromise<Array<CompanyDto3>> {
+    ): CancelablePromise<Array<CompanyDto>> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/Company/GetAllFiltered',
@@ -39,7 +39,7 @@ export class CompanyService {
      * @throws ApiError
      */
     public postCompany(
-        requestBody: CompanyDto3,
+        requestBody: CompanyDto,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'POST',

@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Register Installers from Api
 builder.Services.InstallServicesFromAssembly(builder.Configuration, typeof(Program).Assembly);
 
+// Register Services from Application
 builder.Services.AddServicesByConvention(typeof(IInstaller).Assembly);
 
 // Register Installers and Services from Infrastructure
@@ -38,8 +39,7 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
-}
-else
+} else
 {
     app.UseHttpsRedirection();
 }

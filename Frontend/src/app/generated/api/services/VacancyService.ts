@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { VacancyDto } from '../models/VacancyDto';
-import type { VacancyDto2 } from '../models/VacancyDto2';
 import type { VacancyFilterDto } from '../models/VacancyFilterDto';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import type { BaseHttpRequest } from '../core/BaseHttpRequest';
@@ -40,7 +39,7 @@ export class VacancyService {
      * @throws ApiError
      */
     public postVacancy(
-        requestBody: VacancyDto2,
+        requestBody: VacancyDto,
     ): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'POST',

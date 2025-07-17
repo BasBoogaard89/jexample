@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MaterialModule } from '../../../modules/material-module';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { RouterModule } from '@angular/router';

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-//TODO: echte entity van maken
+//TODO: echte entity van maken, is nu Owned
 public class Address
 {
     public string Street { get; set; } = string.Empty;

@@ -13,7 +13,6 @@ public class CompanyService(ICompanyRepository repository) : BaseService<Company
 
         entity.Name = updatedEntity.Name;
         entity.Address = updatedEntity.Address;
-        entity.Vacancies = updatedEntity.Vacancies;
 
         return await repository.Save(entity);
     }

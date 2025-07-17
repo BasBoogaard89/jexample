@@ -4,9 +4,11 @@ using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
+namespace Api.Controllers;
+
 [ApiController]
 [Route("[controller]")]
-public abstract class BaseController<TEntity, TDto, TService>(IMapper mapper,TService service) : ControllerBase
+public abstract class BaseController<TEntity, TDto, TService>(IMapper mapper, TService service) : ControllerBase
     where TEntity : BaseEntity
     where TDto : class
     where TService : IBaseService<TEntity>
